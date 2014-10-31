@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import InstagramAPI.InstagramApp;
+import InstagramAPI.OAuthAuthenticationListener;
+
 
 public class Login extends Activity {
 
@@ -12,6 +15,11 @@ public class Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        InstagramApp mApp = new InstagramApp(this, ApplicationData.CLIENT_ID,
+                ApplicationData.CLIENT_SECRET, ApplicationData.CALLBACK_URL);
+        mApp.authorize();
+        mApp.setListener(listener);
     }
 
 
@@ -33,4 +41,15 @@ public class Login extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    OAuthAuthenticationListener listener = new OAuthAuthenticationListener() {
+
+        @Override
+        public void onSuccess() {
+        }
+
+        @Override
+        public void onFail(String error) {
+        }
+    };
+
 }
