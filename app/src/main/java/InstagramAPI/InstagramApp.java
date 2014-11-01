@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -16,6 +17,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import org.json.*;
+import com.loopj.android.http.*;
 /**
  * 
  * @author Thiago Locatelli <thiago.locatelli@gmail.com>
@@ -131,7 +135,7 @@ public class InstagramApp {
 			}
 		}.start();
 	}
-	
+
 	private void fetchUserName() {
 		mProgress.setMessage("Finalizing ...");
 		
@@ -180,8 +184,8 @@ public class InstagramApp {
 				}
 			} 
 			else if(msg.what == WHAT_FETCH_INFO) {
-				fetchUserName();
-			}
+                fetchUserName();
+            }
 			else {
 				mProgress.dismiss();
 				mListener.onSuccess();
