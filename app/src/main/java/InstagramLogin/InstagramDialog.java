@@ -1,4 +1,4 @@
-package InstagramAPI;
+package InstagramLogin;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -45,8 +45,6 @@ public class InstagramDialog extends Dialog {
         mUrl = url;
         mListener = listener;
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

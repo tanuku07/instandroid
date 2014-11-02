@@ -1,4 +1,4 @@
-package InstagramAPI;
+package InstagramLogin;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -16,16 +17,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.LoginFilter;
 import android.util.Log;
 
-import org.json.*;
-import com.loopj.android.http.*;
-/**
- * 
- * @author Thiago Locatelli <thiago.locatelli@gmail.com>
- * @author Lorensius W. L T <lorenz@londatiga.net>
- * 
- */
 public class InstagramApp {
 	
 	private InstagramSession mSession;
@@ -55,7 +49,7 @@ public class InstagramApp {
 	private static final String TOKEN_URL = "https://api.instagram.com/oauth/access_token";
 	private static final String API_URL = "https://api.instagram.com/v1";
 
-	private static final String TAG = "InstagramAPI";
+	private static final String TAG = "InstagramLogin";
 
 	public InstagramApp(Context context, String clientId, String clientSecret,
 			String callbackUrl) {
@@ -91,12 +85,11 @@ public class InstagramApp {
 	private void getAccessToken(final String code) {
 		mProgress.setMessage("Getting access token ...");
 		mProgress.show();
-
 		new Thread() {
 			@Override
 			public void run() {
 				Log.i(TAG, "Getting access token");
-				int what = WHAT_FETCH_INFO;
+				int what = 4;
 				try {
 					URL url = new URL(TOKEN_URL);
 					//URL url = new URL(mTokenUrl + "&code=" + code);
@@ -105,7 +98,7 @@ public class InstagramApp {
 					urlConnection.setRequestMethod("POST");
 					urlConnection.setDoInput(true);
 					urlConnection.setDoOutput(true);
-					//urlConnection.connect();
+					urlConnection.connect();
 					OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
 					writer.write("client_id="+mClientId+
 								"&client_secret="+mClientSecret+
@@ -116,82 +109,47 @@ public class InstagramApp {
 					String response = streamToString(urlConnection.getInputStream());
 					Log.i(TAG, "response " + response);
 					JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
-					
+
 					mAccessToken = jsonObj.getString("access_token");
 					Log.i(TAG, "Got access token: " + mAccessToken);
-					
+
 					String id = jsonObj.getJSONObject("user").getString("id");
 					String user = jsonObj.getJSONObject("user").getString("username");
-					String name = jsonObj.getJSONObject("user").getString("full_name");					
-					
+					String name = jsonObj.getJSONObject("user").getString("full_name");
+
 					mSession.storeAccessToken(mAccessToken, id, user, name);
-					
 				} catch (Exception ex) {
 					what = WHAT_ERROR;
 					ex.printStackTrace();
 				}
+                mHandler.sendMessage(mHandler.obtainMessage(what, 1, 0));
 
-				mHandler.sendMessage(mHandler.obtainMessage(what, 1, 0));
 			}
 		}.start();
 	}
 
-	private void fetchUserName() {
-		mProgress.setMessage("Finalizing ...");
-		
-		new Thread() {
-			@Override
-			public void run() {
-				Log.i(TAG, "Fetching user info");
-				int what = WHAT_FINALIZE;
-				try {
-					URL url = new URL(API_URL + "/users/" + mSession.getId() + "/?access_token=" + mAccessToken);
-
-					Log.d(TAG, "Opening URL " + url.toString());
-					HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-					urlConnection.setRequestMethod("GET");
-					urlConnection.setDoInput(true);
-					urlConnection.setDoOutput(true);
-					urlConnection.connect();
-					String response = streamToString(urlConnection.getInputStream());
-					System.out.println(response);
-					JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
-					String name = jsonObj.getJSONObject("data").getString("full_name");
-					String bio = jsonObj.getJSONObject("data").getString("bio");
-					Log.i(TAG, "Got name: " + name + ", bio [" + bio + "]");
-				} catch (Exception ex) {
-					what = WHAT_ERROR;
-					ex.printStackTrace();
-				}
-
-				mHandler.sendMessage(mHandler.obtainMessage(what, 2, 0));
-			}
-		}.start();	
-		
-	}
-
-
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == WHAT_ERROR) {
-				mProgress.dismiss();
-				if(msg.arg1 == 1) {
-					mListener.onFail("Failed to get access token");
-				}
-				else if(msg.arg1 == 2) {
-					mListener.onFail("Failed to get user information");
-				}
-			} 
-			else if(msg.what == WHAT_FETCH_INFO) {
-                fetchUserName();
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == WHAT_ERROR) {
+                mProgress.dismiss();
+                if(msg.arg1 == 1) {
+                    mListener.onFail("Failed to get access token");
+                }
+                else if(msg.arg1 == 2) {
+                    mListener.onFail("Failed to get user information");
+                }
             }
-			else {
-				mProgress.dismiss();
-				mListener.onSuccess();
-			}
-		}
-	};
+            else if(msg.what == WHAT_FETCH_INFO) {
+                mProgress.dismiss();
+                mListener.onSuccess();
+            }
+            else {
+                mProgress.dismiss();
+                mListener.onSuccess();
+            }
+        }
+    };
 
 	public boolean hasAccessToken() {
 		return (mAccessToken == null) ? false : true;
@@ -245,6 +203,10 @@ public class InstagramApp {
 
 		return str;
 	}
+
+    public String getAccessToken(){
+        return mAccessToken;
+    }
 
 	public void resetAccessToken() {
 		if (mAccessToken != null) {

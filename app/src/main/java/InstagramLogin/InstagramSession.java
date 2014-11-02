@@ -1,4 +1,4 @@
-package InstagramAPI;
+package InstagramLogin;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

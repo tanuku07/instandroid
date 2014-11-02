@@ -1,4 +1,4 @@
-package InstagramAPI;
+package kg.android.instagram.instandroid;
 import com.loopj.android.http.*;
 
 
