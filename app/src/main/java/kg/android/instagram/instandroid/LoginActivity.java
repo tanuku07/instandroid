@@ -58,8 +58,8 @@ public class LoginActivity extends Activity {
                             if (!photoJSON.isNull("caption")){
                                 photo.caption = photoJSON.getJSONObject("caption").getString("text");
                             }
+                            photo.avatarURL = photoJSON.getJSONObject("user").getString("profile_picture");
                             photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-                            photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
                             photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
                             photos.add(photo);
                         }

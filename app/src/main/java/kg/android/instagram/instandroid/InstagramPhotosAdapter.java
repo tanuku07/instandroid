@@ -1,6 +1,7 @@
 package kg.android.instagram.instandroid;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,19 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView captionTextView = (TextView) convertView.findViewById(R.id.textView);
         ImageView imgPhoto = (ImageView) convertView.findViewById(R.id.imageView);
 
-        captionTextView.setText(photo.caption);
-        imgPhoto.getLayoutParams().height = photo.imageHeight;
+        ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.avatarImageView);
+        TextView usernameTextView = (TextView) convertView.findViewById(R.id.usernameTextView);
+
+        avatarImageView.setImageResource(0);
+
+        Picasso.with(getContext()).load(photo.avatarURL).into(avatarImageView);
+
+        usernameTextView.setText(photo.username);
+
+        String s = "<b>"+photo.username+"</b> " + photo.caption;
+
+
+        captionTextView.setText(Html.fromHtml(s));
 
         imgPhoto.setImageResource(0);
 
