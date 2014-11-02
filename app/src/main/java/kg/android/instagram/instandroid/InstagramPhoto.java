@@ -6,10 +6,5 @@ public class InstagramPhoto {
     public String imageURL;
     public int likesCount;
     public int imageHeight;
-
-    @Override
-    public String toString() {
-        return "sdsdsd" + imageURL;
-    }
 }
 
