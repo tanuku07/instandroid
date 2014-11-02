@@ -76,6 +76,15 @@ public class LoginActivity extends Activity {
                             photo.avatarURL = photoJSON.getJSONObject("user").getString("profile_picture");
                             photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                             photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
+
+
+                            photo.comment_list = new ArrayList<Comment>();
+                            JSONArray comments = photoJSON.getJSONObject("comments").getJSONArray("data");
+                            for (int j = 0; j < comments.length(); j++) {
+                                JSONObject commentObj = comments.getJSONObject(j);
+                                Comment comment = new Comment(commentObj.getJSONObject("from").getString("username"), commentObj.getString("text"), commentObj.getJSONObject("from").getString("profile_picture"));
+                                photo.comment_list.add(comment);
+                            }
                             photos.add(photo);
                         }
                         photosAdapter.notifyDataSetChanged();
