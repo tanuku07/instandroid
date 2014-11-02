@@ -1,6 +1,8 @@
 package kg.android.instagram.instandroid;
 
-public class InstagramPhoto {
+import java.io.Serializable;
+
+public class InstagramPhoto implements Serializable{
     public String username;
     public String caption;
     public String imageURL;

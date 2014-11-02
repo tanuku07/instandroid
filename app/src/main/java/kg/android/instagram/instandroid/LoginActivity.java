@@ -1,8 +1,12 @@
 package kg.android.instagram.instandroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ public class LoginActivity extends Activity {
     private InstagramPhotosAdapter photosAdapter;
     private InstagramApp mApp;
     private ListView listView;
+    private ArrayList<InstagramPhoto> photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +43,19 @@ public class LoginActivity extends Activity {
         mApp.setListener(listener);
         mApp.authorize();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                Intent instagramInfo = new Intent(LoginActivity.this, InstagramImageInfoActivity.class);
+                instagramInfo.putExtra("PHOTO", photos.get(position));
+                startActivity(instagramInfo);
+            }
+        });
+
     }
 
     private void fetchFeed() throws JSONException{
-            final ArrayList<InstagramPhoto> photos = new ArrayList<InstagramPhoto>();
+            photos = new ArrayList<InstagramPhoto>();
             photosAdapter = new InstagramPhotosAdapter(this, photos);
             listView.setAdapter(photosAdapter);
             String userFeedURL = "/users/self/feed?access_token=" + mApp.getAccessToken();
@@ -50,6 +64,7 @@ public class LoginActivity extends Activity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     JSONArray photosJSON = null;
                     try {
+                        photosAdapter.clear();
                         photosJSON = response.getJSONArray("data");
                         for (int i = 0; i < photosJSON.length(); i++) {
                             JSONObject photoJSON = photosJSON.getJSONObject(i);
