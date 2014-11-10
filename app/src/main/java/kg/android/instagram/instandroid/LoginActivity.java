@@ -29,6 +29,7 @@ public class LoginActivity extends Activity {
     private InstagramApp mApp;
     private ListView listView;
     private ArrayList<InstagramPhoto> photos;
+    private String MAX_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,66 @@ public class LoginActivity extends Activity {
             }
         });
 
+        listView.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                customLoadMoreDataFromApi(page);
+                // or customLoadMoreDataFromApi(totalItemsCount);
+            }
+        });
+
+    }
+
+    public void customLoadMoreDataFromApi(int offset) {
+        // This method probably sends out a network request and appends new data items to your adapter.
+        // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
+        // Deserialize API response and then construct new objects to append to the adapter
+
+        Log.d("Login Activity", MAX_ID);
+
+        String userFeedURL = "/users/self/feed?access_token=" + mApp.getAccessToken() + "&max_id=" + MAX_ID;
+        InstagramRestClient.get(userFeedURL, null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray photosJSON = null;
+                try {
+                    photosJSON = response.getJSONArray("data");
+                    MAX_ID = response.getJSONObject("pagination").getString("next_max_id");
+
+                    for (int i = 0; i < photosJSON.length(); i++) {
+                        JSONObject photoJSON = photosJSON.getJSONObject(i);
+                        InstagramPhoto photo = new InstagramPhoto();
+                        photo.username = photoJSON.getJSONObject("user").getString("username");
+                        if (!photoJSON.isNull("caption")){
+                            photo.caption = photoJSON.getJSONObject("caption").getString("text");
+                        }
+                        photo.avatarURL = photoJSON.getJSONObject("user").getString("profile_picture");
+                        photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
+                        photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
+
+
+                        photo.comment_list = new ArrayList<Comment>();
+                        JSONArray comments = photoJSON.getJSONObject("comments").getJSONArray("data");
+                        for (int j = 0; j < comments.length(); j++) {
+                            JSONObject commentObj = comments.getJSONObject(j);
+                            Comment comment = new Comment(commentObj.getJSONObject("from").getString("username"), commentObj.getString("text"), commentObj.getJSONObject("from").getString("profile_picture"));
+                            photo.comment_list.add(comment);
+                        }
+                        photos.add(photo);
+                    }
+                    photosAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
     }
 
     private void fetchFeed() throws JSONException{
@@ -65,6 +126,8 @@ public class LoginActivity extends Activity {
                     try {
                         photosAdapter.clear();
                         photosJSON = response.getJSONArray("data");
+                        MAX_ID = response.getJSONObject("pagination").getString("next_max_id");
+
                         for (int i = 0; i < photosJSON.length(); i++) {
                             JSONObject photoJSON = photosJSON.getJSONObject(i);
                             InstagramPhoto photo = new InstagramPhoto();
