@@ -69,8 +69,6 @@ public class LoginActivity extends Activity {
         // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
         // Deserialize API response and then construct new objects to append to the adapter
 
-        Log.d("Login Activity", MAX_ID);
-
         String userFeedURL = "/users/self/feed?access_token=" + mApp.getAccessToken() + "&max_id=" + MAX_ID;
         InstagramRestClient.get(userFeedURL, null, new JsonHttpResponseHandler() {
             @Override
