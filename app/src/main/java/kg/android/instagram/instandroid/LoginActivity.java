@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.squareup.otto.Subscribe;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -20,9 +17,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import Events.TestEvent;
 import InstagramLogin.InstagramApp;
 import InstagramLogin.OAuthAuthenticationListener;
+import kg.android.instagram.instandroid.adapters.InstagramPhotosAdapter;
+import kg.android.instagram.instandroid.model.Comment;
+import kg.android.instagram.instandroid.model.InstagramPhoto;
 
 
 public class LoginActivity extends Activity {

@@ -3,15 +3,14 @@ package kg.android.instagram.instandroid;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import kg.android.instagram.instandroid.adapters.InstagramCommentsAdapter;
+import kg.android.instagram.instandroid.model.InstagramPhoto;
 
 
 public class InstagramImageInfoActivity extends Activity {
