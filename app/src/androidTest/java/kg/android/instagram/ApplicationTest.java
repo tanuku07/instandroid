@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid;
+package kg.android.instagram;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

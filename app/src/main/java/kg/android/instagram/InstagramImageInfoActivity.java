@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid;
+package kg.android.instagram;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import kg.android.instagram.instandroid.adapters.InstagramCommentsAdapter;
-import kg.android.instagram.instandroid.model.InstagramPhoto;
+import kg.android.instagram.instandroid.R;
+import kg.android.instagram.adapters.InstagramCommentsAdapter;
+import kg.android.instagram.model.InstagramPhoto;
 
 
 public class InstagramImageInfoActivity extends Activity {

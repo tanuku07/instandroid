@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid.adapters;
+package kg.android.instagram.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import kg.android.instagram.instandroid.R;
-import kg.android.instagram.instandroid.model.Comment;
+import kg.android.instagram.model.Comment;
 
 public class InstagramCommentsAdapter  extends ArrayAdapter<Comment> {
 

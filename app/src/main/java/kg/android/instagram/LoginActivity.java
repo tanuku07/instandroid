@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid;
+package kg.android.instagram;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,9 +19,10 @@ import java.util.ArrayList;
 
 import InstagramLogin.InstagramApp;
 import InstagramLogin.OAuthAuthenticationListener;
-import kg.android.instagram.instandroid.adapters.InstagramPhotosAdapter;
-import kg.android.instagram.instandroid.model.Comment;
-import kg.android.instagram.instandroid.model.InstagramPhoto;
+import kg.android.instagram.instandroid.R;
+import kg.android.instagram.adapters.InstagramPhotosAdapter;
+import kg.android.instagram.model.Comment;
+import kg.android.instagram.model.InstagramPhoto;
 
 
 public class LoginActivity extends Activity {

@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid.adapters;
+package kg.android.instagram.adapters;
 
 import android.content.Context;
 import android.text.Html;
@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import kg.android.instagram.instandroid.R;
-import kg.android.instagram.instandroid.model.InstagramPhoto;
+import kg.android.instagram.model.InstagramPhoto;
 
 public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
     public InstagramPhotosAdapter(Context context, List<InstagramPhoto> photos) {

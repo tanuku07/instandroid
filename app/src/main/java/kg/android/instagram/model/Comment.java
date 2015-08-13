@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid.model;
+package kg.android.instagram.model;
 
 import java.io.Serializable;
 

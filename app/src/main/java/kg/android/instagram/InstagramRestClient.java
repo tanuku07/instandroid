@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid;
+package kg.android.instagram;
 import com.loopj.android.http.*;
 
 

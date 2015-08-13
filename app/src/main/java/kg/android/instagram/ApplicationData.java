@@ -1,4 +1,4 @@
-package kg.android.instagram.instandroid;
+package kg.android.instagram;
 
 public class ApplicationData {
     public static final String CLIENT_ID = "379d744556c743c090c8a2014779f59f";

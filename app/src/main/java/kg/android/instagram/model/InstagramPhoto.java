@@ -1,9 +1,7 @@
-package kg.android.instagram.instandroid.model;
+package kg.android.instagram.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import kg.android.instagram.instandroid.model.Comment;
 
 public class InstagramPhoto implements Serializable{
     public String username;
