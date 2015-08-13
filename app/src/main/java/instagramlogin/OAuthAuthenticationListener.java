@@ -1,4 +1,4 @@
-package InstagramLogin;
+package instagramlogin;
 
 public interface OAuthAuthenticationListener {
         public abstract void onSuccess();

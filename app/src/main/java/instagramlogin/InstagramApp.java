@@ -1,4 +1,4 @@
-package InstagramLogin;
+package instagramlogin;
 
 import java.io.BufferedReader;
 import java.io.IOException;

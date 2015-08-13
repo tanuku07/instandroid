@@ -1,4 +1,4 @@
-package InstagramLogin;
+package instagramlogin;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;

@@ -1,4 +1,4 @@
-package InstagramLogin;
+package instagramlogin;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

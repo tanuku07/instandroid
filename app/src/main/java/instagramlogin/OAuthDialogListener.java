@@ -1,4 +1,4 @@
-package InstagramLogin;
+package instagramlogin;
 
 public interface OAuthDialogListener {
     public abstract void onComplete(String accessToken);
