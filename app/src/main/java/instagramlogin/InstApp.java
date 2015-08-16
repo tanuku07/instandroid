@@ -1,5 +1,14 @@
 package instagramlogin;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,19 +17,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.text.LoginFilter;
-import android.util.Log;
-
-public class InstagramApp {
+public class InstApp {
 	
 	private InstagramSession mSession;
 	private InstagramDialog mDialog;
@@ -51,8 +48,8 @@ public class InstagramApp {
 
 	private static final String TAG = "InstagramLogin";
 
-	public InstagramApp(Context context, String clientId, String clientSecret,
-			String callbackUrl) {
+	public InstApp(Context context, String clientId, String clientSecret,
+				   String callbackUrl) {
 		
 		mClientId = clientId;
 		mClientSecret = clientSecret;

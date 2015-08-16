@@ -99,7 +99,7 @@ public class InstagramDialog extends Dialog {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Log.d(TAG, "Redirecting URL " + url);
 
-            if (url.startsWith(InstagramApp.mCallbackUrl)) {
+            if (url.startsWith(InstApp.mCallbackUrl)) {
                 String urls[] = url.split("=");
                 mListener.onComplete(urls[1]);
                 InstagramDialog.this.dismiss();
