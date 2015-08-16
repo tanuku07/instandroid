@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import kg.android.instagram.instandroid.R;
+import kg.android.instagram.R;
 import kg.android.instagram.model.Comment;
 
 public class InstagramCommentsAdapter  extends ArrayAdapter<Comment> {
@@ -34,12 +34,12 @@ public class InstagramCommentsAdapter  extends ArrayAdapter<Comment> {
         TextView commentTextView = (TextView) convertView.findViewById(R.id.commentTextView);
 
         avatarPhoto.setImageResource(0);
-
-        Picasso.with(getContext()).load(comment.avatarURL).into(avatarPhoto);
-
-        usernameTextView.setText(comment.username);
-
-        commentTextView.setText(comment.comment);
+//
+//        Picasso.with(getContext()).load(comment.avatarURL).into(avatarPhoto);
+//
+//        usernameTextView.setText(comment.username);
+//
+//        commentTextView.setText(comment.comment);
 
         return convertView;
     }

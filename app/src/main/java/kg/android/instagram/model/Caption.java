@@ -3,7 +3,8 @@ package kg.android.instagram.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Comment  {
+public class Caption {
+
     @SerializedName("created_time")
     @Expose
     private String createdTime;
@@ -45,6 +46,5 @@ public class Comment  {
     public void setId(String id) {
         this.id = id;
     }
-
 
 }

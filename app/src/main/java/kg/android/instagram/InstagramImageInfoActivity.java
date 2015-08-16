@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import kg.android.instagram.instandroid.R;
+import kg.android.instagram.R;
 import kg.android.instagram.adapters.InstagramCommentsAdapter;
-import kg.android.instagram.model.InstagramPhoto;
 
 
 public class InstagramImageInfoActivity extends Activity {
@@ -20,7 +19,7 @@ public class InstagramImageInfoActivity extends Activity {
     private TextView usernameTextView;
     private ImageView instagramImageView;
     private TextView captionTextView;
-    private InstagramPhoto photo;
+//    private InstagramPhoto photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,26 +31,26 @@ public class InstagramImageInfoActivity extends Activity {
         usernameTextView = (TextView) findViewById(R.id.loginTextView);
         instagramImageView = (ImageView) findViewById(R.id.photoView);
         captionTextView = (TextView) findViewById(R.id.captionTextView);
-
-        photo = (InstagramPhoto) getIntent().getExtras().get("PHOTO");
-
-        avatarImageView.setImageResource(0);
-
-        Picasso.with(this).load(photo.avatarURL).into(avatarImageView);
-
-        usernameTextView.setText(photo.username);
-
-        instagramImageView.setImageResource(0);
-
-        Picasso.with(getApplicationContext()).load(photo.imageURL).into(instagramImageView);
-
-        String s = "<b>" + photo.username + "</b> " + photo.caption;
-
-        captionTextView.setText(Html.fromHtml(s));
-
-        InstagramCommentsAdapter commentsApadter = new InstagramCommentsAdapter(this, photo.comment_list);
-
-        listView.setAdapter(commentsApadter);
+//
+//        photo = (InstagramPhoto) getIntent().getExtras().get("PHOTO");
+//
+//        avatarImageView.setImageResource(0);
+//
+//        Picasso.with(this).load(photo.avatarURL).into(avatarImageView);
+//
+//        usernameTextView.setText(photo.username);
+//
+//        instagramImageView.setImageResource(0);
+//
+//        Picasso.with(getApplicationContext()).load(photo.imageURL).into(instagramImageView);
+//
+//        String s = "<b>" + photo.username + "</b> " + photo.caption;
+//
+//        captionTextView.setText(Html.fromHtml(s));
+//
+//        InstagramCommentsAdapter commentsApadter = new InstagramCommentsAdapter(this, photo.comment_list);
+//
+//        listView.setAdapter(commentsApadter);
 
     }
 
