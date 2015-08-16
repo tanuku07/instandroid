@@ -1,6 +1,7 @@
-package kg.android.instagram;
+package kg.android.instagram.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import butterknife.OnClick;
 import instagramlogin.InstApp;
 import instagramlogin.InstagramSession;
 import instagramlogin.OAuthAuthenticationListener;
+import kg.android.instagram.ApplicationData;
+import kg.android.instagram.R;
 import kg.android.instagram.network.RestClient;
 
 public class LoginActivity extends Activity {
@@ -29,6 +32,7 @@ public class LoginActivity extends Activity {
         if (instagramSession.getAccessToken() != null) {
             RestClient.setAccessToken(instagramSession.getAccessToken());
             Log.d(TAG, "Access token is : " + instagramSession.getAccessToken());
+            login();
         } else {
             authorize();
         }
@@ -41,6 +45,7 @@ public class LoginActivity extends Activity {
             Log.d("Login Item", "Success");
             RestClient.setAccessToken(mApp.getAccessToken());
             instagramSession.storeAccessToken(mApp.getAccessToken());
+            login();
         }
 
         @Override
@@ -48,6 +53,11 @@ public class LoginActivity extends Activity {
             Log.d("Login Item", "Failed");
         }
     };
+
+    private void login() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 
     @OnClick(R.id.loginButton)
     public void onLoginButtonClick(View view) {
