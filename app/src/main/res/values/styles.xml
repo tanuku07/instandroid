@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/style_color_primary_dark</item>
         <item name="colorAccent">@color/style_color_accent</item>
         <item name="colorButtonNormal">@color/style_color_accent</item>
+        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
     </style>
 
 </resources>
