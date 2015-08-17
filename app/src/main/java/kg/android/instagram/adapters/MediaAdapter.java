@@ -1,14 +1,14 @@
 package kg.android.instagram.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -19,11 +19,9 @@ import kg.android.instagram.model.Media;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
     private List<Media> mediaList;
-    private Context context;
 
-    public MediaAdapter(Context context, List<Media> mediaList) {
+    public MediaAdapter(List<Media> mediaList) {
         this.mediaList = mediaList;
-        this.context = context;
     }
 
     @Override
@@ -36,8 +34,8 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Media media = mediaList.get(position);
-        Picasso.with(context).load(media.getImages().getLowResolution().getUrl()).into(viewHolder.ivFeedCenter);
-        Picasso.with(context).load(media.getUser().getProfilePicture()).into(viewHolder.ivUserProfile);
+        viewHolder.ivFeedCenter.setImageURI(Uri.parse(media.getImages().getLowResolution().getUrl()));
+        viewHolder.ivUserProfile.setImageURI(Uri.parse(media.getUser().getProfilePicture()));
         viewHolder.username.setText(media.getUser().getUsername());
         viewHolder.likesCount.setText(Integer.toString(media.getLikes().getCount()));
     }
@@ -49,9 +47,9 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.ivFeedCenter)
-        ImageView ivFeedCenter;
+        SimpleDraweeView ivFeedCenter;
         @Bind(R.id.profile_image)
-        ImageView ivUserProfile;
+        SimpleDraweeView ivUserProfile;
         @Bind(R.id.profile_name)
         TextView username;
         @Bind(R.id.tsLikesCounter)

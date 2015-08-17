@@ -3,6 +3,8 @@ package kg.android.instagram;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import timber.log.Timber;
 
 public class InstApplication extends Application {
@@ -10,6 +12,7 @@ public class InstApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Timber.plant(new Timber.DebugTree());
+        Fresco.initialize(getApplicationContext());
     }
 
     @Override

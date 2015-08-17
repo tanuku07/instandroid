@@ -19,4 +19,5 @@
     <color name="text_like_counter">#2b5a83</color>
 
     <color name="bg_comments">#ffffff</color>
+    <color name="wait_color">#DBD7D7</color>
 </resources>
