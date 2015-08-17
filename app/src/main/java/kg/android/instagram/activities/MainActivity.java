@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import kg.android.instagram.EndlessRecyclerOnScrollListener;
 import kg.android.instagram.R;
 import kg.android.instagram.adapters.MediaAdapter;
 import kg.android.instagram.model.Feed;
+import kg.android.instagram.model.Media;
 import kg.android.instagram.network.RestClient;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Toolbar toolbar;
+    private String maxId;
+    private List<Media> resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,21 @@ public class MainActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        resources = new ArrayList<>();
+        mAdapter = new MediaAdapter(MainActivity.this, resources);
+        mRecyclerView.setAdapter(mAdapter);
 
-        RestClient.get().getFeed()
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener((LinearLayoutManager) mLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                getFeed(maxId);
+            }
+        });
+        getFeed(null);
+    }
+
+    private void getFeed(String maxId) {
+        RestClient.get().getFeed(maxId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Feed>() {
@@ -58,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Feed feed) {
-                        mAdapter = new MediaAdapter(MainActivity.this, feed.getData());
-                        mRecyclerView.setAdapter(mAdapter);
+                        MainActivity.this.maxId = feed.getPagination().getNextMaxId();
+                        resources.addAll(feed.getData());
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
     }

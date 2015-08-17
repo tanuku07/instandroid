@@ -13,9 +13,9 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "CLIENT_ID", "379d744556c743c090c8a2014779f59f"
-            buildConfigField "String", "CLIENT_SECRET", "fd6ec75e44054da1a5088ad2d72f2253"
-            buildConfigField "String", "CALLBACK_URL", "instagram://connect"
+            buildConfigField "String", "CLIENT_ID", "\"379d744556c743c090c8a2014779f59f\""
+            buildConfigField "String", "CLIENT_SECRET", "\"fd6ec75e44054da1a5088ad2d72f2253\""
+            buildConfigField "String", "CALLBACK_URL", "\"instagram://connect\""
         }
         release {
             minifyEnabled false
