@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Feed feed) {
-                        mAdapter = new MediaAdapter(feed.getData());
+                        mAdapter = new MediaAdapter(MainActivity.this, feed.getData());
                         mRecyclerView.setAdapter(mAdapter);
                     }
                 });

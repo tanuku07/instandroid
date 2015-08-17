@@ -22,7 +22,7 @@ public class Media {
     private String filter;
     @SerializedName("created_time")
     @Expose
-    private String createdTime;
+    private long createdTime;
     @Expose
     private String link;
     @Expose
@@ -90,11 +90,11 @@ public class Media {
         this.filter = filter;
     }
 
-    public String getCreatedTime() {
+    public long getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(String createdTime) {
+    public void setCreatedTime(long createdTime) {
         this.createdTime = createdTime;
     }
 
