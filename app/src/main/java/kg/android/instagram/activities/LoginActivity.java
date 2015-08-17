@@ -11,7 +11,7 @@ import butterknife.OnClick;
 import instagramlogin.InstApp;
 import instagramlogin.InstagramSession;
 import instagramlogin.OAuthAuthenticationListener;
-import kg.android.instagram.ApplicationData;
+import kg.android.instagram.BuildConfig;
 import kg.android.instagram.R;
 import kg.android.instagram.network.RestClient;
 
@@ -25,8 +25,8 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mApp = new InstApp(this, ApplicationData.CLIENT_ID,
-                ApplicationData.CLIENT_SECRET, ApplicationData.CALLBACK_URL);
+        mApp = new InstApp(this, BuildConfig.CLIENT_ID,
+                BuildConfig.CLIENT_SECRET, BuildConfig.CALLBACK_URL);
         instagramSession = new InstagramSession(this);
 
         if (instagramSession.getAccessToken() != null) {

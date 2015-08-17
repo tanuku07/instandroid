@@ -19,10 +19,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InstagramImageInfoActivity"
-            android:label="@string/title_activity_instagram_image_info" >
-        </activity>
-        <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
