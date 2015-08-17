@@ -1,7 +1,7 @@
 package kg.android.instagram.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +20,7 @@ import kg.android.instagram.network.RestClient;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Timber.tag("MainActivity");
         mRecyclerView = (RecyclerView) findViewById(R.id.media_list);
 
         // use this setting to improve performance if you know that changes
@@ -64,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<Feed>() {
                     @Override
                     public void onCompleted() {
-
+                        Timber.d("completed");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Timber.e(e.getMessage());
                     }
 
                     @Override
